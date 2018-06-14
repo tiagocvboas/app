@@ -1,4 +1,4 @@
-package pt.tiago;
+package pt.tiago.webservice;
 
 public class Greeting {
 

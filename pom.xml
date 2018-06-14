@@ -12,9 +12,15 @@
         <module>data</module>
         <module>business</module>
         <module>business-api</module>
-        <module>webservices</module>
+        <module>webservice</module>
+        <module>common</module>
+        <module>webservice-api</module>
     </modules>
 
+    <properties>
+        <app.version>1.0-SNAPSHOT</app.version>
+        <java.version>1.8</java.version>
+    </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -38,21 +44,40 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>pt.tiago</groupId>
+                <artifactId>data</artifactId>
+                <version>${app.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pt.tiago</groupId>
+                <artifactId>common</artifactId>
+                <version>${app.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pt.tiago</groupId>
+                <artifactId>business</artifactId>
+                <version>${app.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pt.tiago</groupId>
+                <artifactId>business-api</artifactId>
+                <version>${app.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pt.tiago</groupId>
+                <artifactId>webservices</artifactId>
+                <version>${app.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pt.tiago</groupId>
+                <artifactId>webservices-api</artifactId>
+                <version>${app.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <repositories>
         <repository>
             <id>spring-releases</id>
