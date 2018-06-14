@@ -9,9 +9,25 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>webservices</artifactId>
+    <artifactId>webservices-api</artifactId>
 
     <dependencies>
-
+        <dependency>
+            <groupId>pt.tiago</groupId>
+            <artifactId>business-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>pt.tiago</groupId>
+            <artifactId>business</artifactId>
+        </dependency>
     </dependencies>
+
+    <build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+    </build>
 </project>

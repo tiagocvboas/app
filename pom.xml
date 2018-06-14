@@ -11,10 +11,8 @@
     <modules>
         <module>data</module>
         <module>business</module>
-        <module>business-api</module>
-        <module>webservice</module>
         <module>common</module>
-        <module>webservice-api</module>
+        <module>webservice</module>
     </modules>
 
     <properties>
