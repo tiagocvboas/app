@@ -1,16 +1,16 @@
-package exception;
+package pt.tiago.exception;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import pt.tiago.mapper.dto.ErrorEnum;
-import pt.tiago.mapper.dto.ErrorStatus;
-import pt.tiago.mapper.exception.AppRuntimeException;
-import pt.tiago.mapper.exception.ConflictException;
-import pt.tiago.mapper.exception.ExceptionUtils;
-import pt.tiago.mapper.exception.NotFoundException;
+import pt.tiago.dto.ErrorEnum;
+import pt.tiago.dto.ErrorStatus;
+import pt.tiago.exception.AppRuntimeException;
+import pt.tiago.exception.ConflictException;
+import pt.tiago.exception.ExceptionUtils;
+import pt.tiago.exception.NotFoundException;
 
 /**
  * Created by Tiago Vilas Boas on 15/06/2018.

@@ -1,7 +1,6 @@
-package pt.tiago.mapper.service;
+package pt.tiago.service;
 
-import pt.tiago.mapper.dto.AbstractBaseId;
-import pt.tiago.mapper.exception.NotFoundException;
+import pt.tiago.dto.AbstractBaseId;
 
 import java.util.Collection;
 

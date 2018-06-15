@@ -1,4 +1,4 @@
-package pt.tiago.service;
+package pt.tiago.controller;
 
 public class Greeting {
 

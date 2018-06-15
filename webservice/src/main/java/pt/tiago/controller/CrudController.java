@@ -1,9 +1,6 @@
-package pt.tiago.service;
+package pt.tiago.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.Collection;
 
 /**
  * Interface for crud controllers

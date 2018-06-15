@@ -1,4 +1,4 @@
-package pt.tiago.mapper.exception;
+package pt.tiago.exception;
 
 /**
  * Created by Tiago Vilas Boas on 15/06/2018.

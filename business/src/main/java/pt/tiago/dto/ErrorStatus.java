@@ -1,4 +1,4 @@
-package pt.tiago.mapper.dto;
+package pt.tiago.dto;
 
 import java.util.Objects;
 

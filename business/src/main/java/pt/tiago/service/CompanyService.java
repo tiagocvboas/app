@@ -1,9 +1,10 @@
-package pt.tiago.mapper.service;
+package pt.tiago.service;
 
 import org.springframework.stereotype.Service;
-import pt.tiago.mapper.dto.CompanyDto;
-import pt.tiago.mapper.exception.NotFoundException;
+import pt.tiago.dto.CompanyDto;
+import pt.tiago.exception.NotFoundException;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -11,15 +12,20 @@ import java.util.Collection;
  */
 @Service
 public class CompanyService implements CrudService<CompanyDto,Long> {
+
+
     @Override
     public CompanyDto read(Long id) {
-        throw  new NotFoundException();
-        //return null;
+        return (CompanyDto) new CompanyDto().setName("primeiro").setId(1L);
     }
 
     @Override
     public Collection<CompanyDto> list() {
-        return null;
+        ArrayList<CompanyDto> companyDtos = new ArrayList<>();
+        companyDtos.add((CompanyDto) new CompanyDto().setName("primeiro").setId(1L));
+        companyDtos.add((CompanyDto) new CompanyDto().setName("segundo").setId(2L));
+        companyDtos.add((CompanyDto) new CompanyDto().setName("terceiro").setId(3L));
+        return companyDtos;
     }
 
     @Override

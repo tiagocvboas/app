@@ -1,4 +1,4 @@
-package pt.tiago.mapper.dto;
+package pt.tiago.dto;
 
 /**
  * Created by Tiago Vilas Boas on 15/06/2018.

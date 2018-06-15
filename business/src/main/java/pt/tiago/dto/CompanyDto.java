@@ -1,10 +1,10 @@
-package pt.tiago.mapper.dto;
+package pt.tiago.dto;
 
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  * Created by Tiago Vilas Boas on 15/06/2018.
@@ -93,5 +93,38 @@ public class CompanyDto extends AbstractBaseId<Long> {
     public CompanyDto setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CompanyDto)) return false;
+        CompanyDto that = (CompanyDto) o;
+        return Objects.equals(getCompanyIdentifier(), that.getCompanyIdentifier()) &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getAddress(), that.getAddress()) &&
+                Objects.equals(getCity(), that.getCity()) &&
+                Objects.equals(getCountry(), that.getCountry()) &&
+                Objects.equals(getEmail(), that.getEmail()) &&
+                Objects.equals(getPhoneNumber(), that.getPhoneNumber());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getCompanyIdentifier(), getName(), getAddress(), getCity(), getCountry(), getEmail(), getPhoneNumber());
+    }
+
+    @Override
+    public String toString() {
+        return "CompanyDto{" +
+                "companyIdentifier='" + companyIdentifier + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                "} " + super.toString();
     }
 }

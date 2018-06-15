@@ -1,5 +1,6 @@
-package pt.tiago.service;
+package pt.tiago.controller;
 
+import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
@@ -10,10 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import pt.tiago.mapper.dto.AbstractBaseId;
-import pt.tiago.mapper.exception.AppRuntimeException;
-import pt.tiago.mapper.service.CrudService;
-import pt.tiago.mapper.exception.ExceptionUtils;
+import pt.tiago.dto.AbstractBaseId;
+import pt.tiago.exception.AppRuntimeException;
+import pt.tiago.service.CrudService;
+import pt.tiago.exception.ExceptionUtils;
 
 import javax.validation.Valid;
 import java.io.Serializable;
@@ -35,6 +36,8 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
 
     private CrudService<T,Y> crudService;
 
+    protected abstract Logger getLogger();
+
     public AbstractController(CrudService<T, Y> crudService) {
         this.crudService = crudService;
     }
@@ -45,7 +48,10 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
         T t = getNewINInstance();
         try {
             crudService.read(id);
+            getLogger().info("read by id = {} from {}",id,this.getClass().getSimpleName());
         } catch (AppRuntimeException exception){
+            getLogger().warn("failed to execute service {} with id={} with exception {}",
+                    this.getClass().getSimpleName(),id,exception.getClass().getSimpleName());
             return handle(exception);
         }
         t.setId(id);
@@ -56,7 +62,16 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
     @Override
     @GetMapping(value = "/")
     public ResponseEntity<Collection<T>> list() {
-        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.OK);
+        Collection<T> list;
+        try {
+            list = crudService.list();
+            getLogger().info("listing resources from {}", this.getClass().getSimpleName());
+        } catch (AppRuntimeException exception) {
+            getLogger().warn("failed to execute service {} with id={} with exception {}",
+                    this.getClass().getSimpleName(), exception.getClass().getSimpleName());
+            return handle(exception);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @Override
