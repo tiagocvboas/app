@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import pt.tiago.mapper.dto.AbstractBaseId;
+import pt.tiago.mapper.exception.AppRuntimeException;
+import pt.tiago.mapper.service.CrudService;
+import pt.tiago.mapper.exception.ExceptionUtils;
 
 import javax.validation.Valid;
 import java.io.Serializable;
@@ -30,13 +33,26 @@ import java.util.Collection;
  */
 public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends Serializable> implements CrudController<T,Y> {
 
+    private CrudService<T,Y> crudService;
+
+    public AbstractController(CrudService<T, Y> crudService) {
+        this.crudService = crudService;
+    }
+
     @Override
     @GetMapping(value = "/{id}/")
-    public ResponseEntity<T> read(@PathVariable("id")Y id) {
+    public ResponseEntity read(@PathVariable("id")Y id) {
         T t = getNewINInstance();
+        try {
+            crudService.read(id);
+        } catch (AppRuntimeException exception){
+            return handle(exception);
+        }
         t.setId(id);
         return new ResponseEntity<>(t, HttpStatus.OK);
     }
+
+
     @Override
     @GetMapping(value = "/")
     public ResponseEntity<Collection<T>> list() {
@@ -72,10 +88,14 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
         try {
             out = type.newInstance();
         } catch (IllegalAccessException | InstantiationException ignored) {
-            ;
         }
 
         return out;
+    }
+
+
+    private ResponseEntity handle(AppRuntimeException exception) {
+        return ExceptionUtils.handle(exception);
     }
 
 }

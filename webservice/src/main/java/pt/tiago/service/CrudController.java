@@ -12,11 +12,11 @@ import java.util.Collection;
  */
 public interface CrudController<T ,Y> {
 
-    ResponseEntity<T> read(Y id);
-    ResponseEntity<Collection<T>> list();
-    ResponseEntity<T> create(T dto);
-    ResponseEntity<T> update(Y id, T dto);
-    ResponseEntity<T> delete(Y id);
+    ResponseEntity read(Y id);
+    ResponseEntity list();
+    ResponseEntity create(T dto);
+    ResponseEntity update(Y id, T dto);
+    ResponseEntity delete(Y id);
 
 
 
