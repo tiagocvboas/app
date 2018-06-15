@@ -1,4 +1,4 @@
-package pt.tiago.webservice;
+package pt.tiago.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

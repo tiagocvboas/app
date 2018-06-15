@@ -20,6 +20,10 @@
             <groupId>pt.tiago</groupId>
             <artifactId>business</artifactId>
         </dependency>
+        <dependency>
+            <groupId>pt.tiago</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
