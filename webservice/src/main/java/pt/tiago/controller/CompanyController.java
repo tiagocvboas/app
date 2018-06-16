@@ -35,27 +35,27 @@ public class CompanyController  {
     private CompanyService companyService;
 
 
-    @GetMapping(value = "/{id}/")
+    @GetMapping(value = "{id}")
     public ResponseEntity read(@PathVariable("id")Long id) {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "")
     public ResponseEntity<Collection<CompanyDto>> list() {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/")
+    @PostMapping(value = "")
     public ResponseEntity<CompanyDto> create(@Valid @RequestBody CompanyDto dto) {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PutMapping(value = "/{id}/")
+    @PutMapping(value = "{id}")
     public ResponseEntity<CompanyDto> update(@PathVariable("id")Long id,@Valid @RequestBody CompanyDto dto) {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{id}/")
+    @DeleteMapping(value = "{id}")
     public ResponseEntity<CompanyDto> delete(@PathVariable("id")Long id) {
         return new ResponseEntity(HttpStatus.OK);
     }
