@@ -104,8 +104,8 @@ public class Company {
             CascadeType.MERGE
     })
     @JoinTable(name = "company_owner",
-            joinColumns = @JoinColumn(name = "owner_id"),
-            inverseJoinColumns = @JoinColumn(name = "company_id")
+            joinColumns = @JoinColumn(name = "company_id"),
+            inverseJoinColumns = @JoinColumn(name = "owner_id")
     )
     public List<Owner> getOwners() {
         return owners;

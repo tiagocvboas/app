@@ -33,7 +33,7 @@ import java.util.Optional;
  */
 public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends Serializable> implements CrudController<T,Y> {
 
-    private CrudService<T,Y> crudService;
+    protected CrudService<T,Y> crudService;
 
     protected abstract Logger getLogger();
 
@@ -122,7 +122,7 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
      * @param exception an instance of AppRuntimeException or a class that extends it
      * @return
      */
-    private ResponseEntity handle(AppRuntimeException exception) {
+    protected ResponseEntity handle(AppRuntimeException exception) {
         return ExceptionUtils.handle(exception);
     }
 

@@ -4,14 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import pt.tiago.business.dto.CompanyDto;
+import pt.tiago.business.dto.OwnerDto;
+import pt.tiago.business.exception.NotFoundException;
+import pt.tiago.business.mapper.OwnerDtoMapper;
+import pt.tiago.business.mapper.OwnerMapper;
 import pt.tiago.data.entity.Company;
 import pt.tiago.business.mapper.LongMapper;
 import pt.tiago.business.mapper.Mapper;
 import pt.tiago.business.mapper.CompanyDtoMapper;
 import pt.tiago.business.mapper.CompanyMapper;
+import pt.tiago.data.entity.Owner;
 import pt.tiago.data.repository.CompanyRepository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by Tiago Vilas Boas on 15/06/2018.
@@ -23,33 +33,36 @@ import javax.transaction.Transactional;
 public class CompanyService extends AbstractService<CompanyDto,Long,Company,Long> implements CrudService<CompanyDto,Long> {
 
     @Autowired
-    private CompanyRepository CompanyRepository;
+    private CompanyRepository companyRepository;
 
 
     @Autowired
-    private CompanyMapper CompanyMapper;
+    private CompanyMapper companyMapper;
 
 
     @Autowired
-    private CompanyDtoMapper CompanyDtoMapper;
+    private CompanyDtoMapper companyDtoMapper;
 
     @Autowired
     private LongMapper pkMapper;
 
+    @Autowired
+    private OwnerMapper ownerMapper;
+
 
     @Override
     JpaRepository<Company, Long> getRepository() {
-        return CompanyRepository;
+        return companyRepository;
     }
 
     @Override
     Mapper<Company, CompanyDto> getEntityToDtoMapper() {
-        return CompanyMapper;
+        return companyMapper;
     }
 
     @Override
     Mapper<CompanyDto, Company> getDtoToEntityMapper() {
-        return CompanyDtoMapper;
+        return companyDtoMapper;
     }
 
     @Override
@@ -60,5 +73,11 @@ public class CompanyService extends AbstractService<CompanyDto,Long,Company,Long
     @Override
     Mapper<Long, Long> getEntityPkToPkMapper() {
         return pkMapper;
+    }
+
+    public Collection<OwnerDto> owners(long id) {
+        Company byId = companyRepository.findById(id).orElseThrow(NotFoundException::new);
+        List<Owner> owners = byId.getOwners();
+        return owners.stream().map(t->ownerMapper.map(t)).collect(Collectors.toList());
     }
 }
