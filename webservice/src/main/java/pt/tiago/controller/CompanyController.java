@@ -3,6 +3,7 @@ package pt.tiago.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping(value = "api/company")
-public class CompanyController extends AbstractController<CompanyDto,Long> implements CrudController<CompanyDto,Long>  {
+public class CompanyController  {
 
     private final Logger logger = LoggerFactory.getLogger(CompanyController.class);
 
@@ -34,42 +35,35 @@ public class CompanyController extends AbstractController<CompanyDto,Long> imple
     private CompanyService companyService;
 
 
-    @Override
     @GetMapping(value = "/{id}/")
     public ResponseEntity read(@PathVariable("id")Long id) {
-        return super.read(id);
+        return new ResponseEntity(companyService.read(id),HttpStatus.OK);
     }
 
-    @Override
     @GetMapping(value = "/")
     public ResponseEntity<Collection<CompanyDto>> list() {
-        return super.list();
+        return new ResponseEntity(companyService.list(),HttpStatus.OK);
     }
 
-    @Override
     @PostMapping(value = "/")
     public ResponseEntity<CompanyDto> create(@Valid @RequestBody CompanyDto dto) {
-        return super.create(dto);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
-    @Override
     @PutMapping(value = "/{id}/")
     public ResponseEntity<CompanyDto> update(@PathVariable("id")Long id,@Valid @RequestBody CompanyDto dto) {
-        return super.update(id, dto);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
-    @Override
     @DeleteMapping(value = "/{id}/")
     public ResponseEntity<CompanyDto> delete(@PathVariable("id")Long id) {
-        return super.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
-    @Override
     protected Logger getLogger() {
         return logger;
     }
 
-    @Override
     public CrudService<CompanyDto, Long> getCrudService() {
         return companyService;
     }
