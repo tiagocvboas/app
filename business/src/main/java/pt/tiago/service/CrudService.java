@@ -14,7 +14,7 @@ public interface CrudService<T extends AbstractBaseId<Y>,Y> {
     Optional<T> read(Y id);
     Collection<T> list();
     T create(T dto);
-    T update(Y id, T dto);
-    T delete(Y id);
+    void update(Y id, T dto);
+    void delete(Y id);
 
 }

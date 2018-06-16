@@ -1,3 +1,5 @@
+package pt.tiago.controller;
+
 /**
  * Created by Tiago Vilas Boas on 15/06/2018.
  */
