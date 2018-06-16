@@ -37,12 +37,12 @@ public class CompanyController  {
 
     @GetMapping(value = "/{id}/")
     public ResponseEntity read(@PathVariable("id")Long id) {
-        return new ResponseEntity(companyService.read(id),HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping(value = "/")
     public ResponseEntity<Collection<CompanyDto>> list() {
-        return new ResponseEntity(companyService.list(),HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping(value = "/")
