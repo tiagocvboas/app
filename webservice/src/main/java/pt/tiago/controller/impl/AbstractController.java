@@ -49,7 +49,7 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
 
     @Override
     @GetMapping(value = "{id}")
-    public ResponseEntity read(@PathVariable("id")Y id) {
+    public ResponseEntity read(@PathVariable("id") Y id) {
         Optional<T> t;
         try {
             t = getCrudService().read(id);
@@ -81,20 +81,44 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
     @Override
     @PostMapping(value = "")
     public ResponseEntity<T> create(@Valid @RequestBody T dto) {
-        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        return new ResponseEntity<>(dto,headers,HttpStatus.CREATED);
+        T created;
+        try {
+            created = getCrudService().create(dto);
+            getLogger().info("listing resources from {}", this.getClass().getSimpleName());
+        } catch (AppRuntimeException exception) {
+            getLogger().warn("failed to execute service {} with id={} with exception {}",
+                    this.getClass().getSimpleName(), exception.getClass().getSimpleName());
+            return handle(exception);
+        }
+        return new ResponseEntity<>(created,HttpStatus.CREATED);
     }
 
     @Override
     @PutMapping(value = "{id}")
     public ResponseEntity<T> update(@PathVariable("id") Y id,@RequestBody  T dto) {
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            getCrudService().update(id,dto);
+            getLogger().info("listing resources from {}", this.getClass().getSimpleName());
+        } catch (AppRuntimeException exception) {
+            getLogger().warn("failed to execute service {} with id={} with exception {}",
+                    this.getClass().getSimpleName(), exception.getClass().getSimpleName());
+            return handle(exception);
+        }
+        return ResponseEntity.noContent().build();
     }
 
     @Override
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<T> delete(@PathVariable("id")Y id) {
-        return null;
+    public ResponseEntity<T> delete(@PathVariable("id") Y id) {
+        try {
+        getCrudService().delete(id);
+        getLogger().info("listing resources from {}", this.getClass().getSimpleName());
+    } catch (AppRuntimeException exception) {
+        getLogger().warn("failed to execute service {} with id={} with exception {}",
+                this.getClass().getSimpleName(), exception.getClass().getSimpleName());
+        return handle(exception);
+    }
+        return ResponseEntity.noContent().build();
     }
 
 

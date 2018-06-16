@@ -1,5 +1,6 @@
 package pt.tiago.controller;
 
+
 public class Greeting {
 
     private final long id;

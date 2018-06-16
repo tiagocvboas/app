@@ -6,7 +6,8 @@ package pt.tiago.dto;
 public enum ErrorEnum {
     RESOURCE_NOT_FOUND("notfound"),
     INTERNAL_SERVER_ERROR("internal server error"),
-    UNIQUE_IDENTIFIER_EXISTS("uuid");
+    UNIQUE_IDENTIFIER_EXISTS("uuid"),
+    BAD_REQUEST("Invalid request");
 
     private final String description;
 

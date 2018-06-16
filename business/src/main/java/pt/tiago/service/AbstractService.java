@@ -53,7 +53,7 @@ abstract class AbstractService<DTO extends AbstractBaseId<DTOPK>, DTOPK,ENTITY,E
 
         ENTITY entity = getDtoToEntityMapper().map(dto);
 
-        ENTITY saved = getRepository().save(entity);
+        ENTITY saved = getRepository().saveAndFlush(entity);
 
         return getEntityToDtoMapper().map(saved);
     }
