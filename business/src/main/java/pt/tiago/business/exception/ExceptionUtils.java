@@ -10,6 +10,11 @@ import pt.tiago.business.dto.ErrorStatus;
  */
 public class ExceptionUtils {
 
+    /**
+     * Takes an exception and mapps it to the httpStatus we want to return
+     * @param exception The exception to handle
+     * @return A ResponseEntity with an Error status as body
+     */
     public static ResponseEntity handle(AppRuntimeException exception){
 
         if (exception instanceof NotFoundException){

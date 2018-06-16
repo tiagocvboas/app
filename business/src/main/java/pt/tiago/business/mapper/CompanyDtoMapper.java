@@ -6,6 +6,7 @@ import pt.tiago.data.entity.Company;
 
 /**
  * Created by Tiago Vilas Boas on 16/06/2018.
+ * CompanyDto to Company mapper
  */
 @Component
 public class CompanyDtoMapper implements Mapper<CompanyDto,Company> {

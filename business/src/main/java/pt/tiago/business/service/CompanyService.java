@@ -15,6 +15,8 @@ import javax.transaction.Transactional;
 
 /**
  * Created by Tiago Vilas Boas on 15/06/2018.
+ *
+ *  Implementation of the Company Service
  */
 @Service
 @Transactional

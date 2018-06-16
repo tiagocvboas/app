@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import pt.tiago.webservice.controller.CrudController;
 import pt.tiago.business.dto.AbstractBaseId;
 import pt.tiago.business.dto.ErrorEnum;
 import pt.tiago.business.dto.ErrorStatus;
 import pt.tiago.business.exception.AppRuntimeException;
 import pt.tiago.business.exception.ExceptionUtils;
 import pt.tiago.business.service.CrudService;
+import pt.tiago.webservice.controller.CrudController;
 
 import javax.validation.Valid;
 import java.io.Serializable;
@@ -41,16 +41,13 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
         this.crudService = crudService;
     }
 
-    private CrudService<T, Y> getCrudService() {
-        return crudService;
-    }
 
     @Override
     @GetMapping(value = "{id}")
     public ResponseEntity read(@PathVariable("id") Y id) {
         Optional<T> t;
         try {
-            t = getCrudService().read(id);
+            t = crudService.read(id);
             getLogger().info("read by id = {} from {}",id,this.getClass().getSimpleName());
         } catch (AppRuntimeException exception){
             getLogger().warn("failed to execute service {} with id={} with exception {}",
@@ -66,7 +63,7 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
     public ResponseEntity<Collection<T>> list() {
         Collection<T> list;
         try {
-            list = getCrudService().list();
+            list = crudService.list();
             getLogger().info("listing resources from {}", this.getClass().getSimpleName());
         } catch (AppRuntimeException exception) {
             getLogger().warn("failed to execute service {} with id={} with exception {}",
@@ -81,7 +78,7 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
     public ResponseEntity<T> create(@Valid @RequestBody T dto) {
         T created;
         try {
-            created = getCrudService().create(dto);
+            created = crudService.create(dto);
             getLogger().info("listing resources from {}", this.getClass().getSimpleName());
         } catch (AppRuntimeException exception) {
             getLogger().warn("failed to execute service {} with id={} with exception {}",
@@ -95,7 +92,7 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
     @PutMapping(value = "{id}")
     public ResponseEntity<T> update(@PathVariable("id") Y id,@RequestBody  T dto) {
         try {
-            getCrudService().update(id,dto);
+            crudService.update(id,dto);
             getLogger().info("listing resources from {}", this.getClass().getSimpleName());
         } catch (AppRuntimeException exception) {
             getLogger().warn("failed to execute service {} with id={} with exception {}",
@@ -109,18 +106,22 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
     @DeleteMapping(value = "{id}")
     public ResponseEntity<T> delete(@PathVariable("id") Y id) {
         try {
-        getCrudService().delete(id);
-        getLogger().info("listing resources from {}", this.getClass().getSimpleName());
-    } catch (AppRuntimeException exception) {
-        getLogger().warn("failed to execute service {} with id={} with exception {}",
-                this.getClass().getSimpleName(), exception.getClass().getSimpleName());
-        return handle(exception);
-    }
+            crudService.delete(id);
+            getLogger().info("listing resources from {}", this.getClass().getSimpleName());
+        } catch (AppRuntimeException exception) {
+            getLogger().warn("failed to execute service {} with id={} with exception {}",
+                    this.getClass().getSimpleName(), exception.getClass().getSimpleName());
+            return handle(exception);
+        }
         return ResponseEntity.noContent().build();
     }
 
 
-
+    /**
+     * Handles the exceptions to return the respective http
+     * @param exception an instance of AppRuntimeException or a class that extends it
+     * @return
+     */
     private ResponseEntity handle(AppRuntimeException exception) {
         return ExceptionUtils.handle(exception);
     }

@@ -6,6 +6,7 @@ import pt.tiago.data.entity.Owner;
 
 /**
  * Created by Tiago Vilas Boas on 16/06/2018.
+ * Owner to OwnerDto mapper
  */
 @Component
 public class OwnerMapper implements Mapper<Owner,OwnerDto> {
