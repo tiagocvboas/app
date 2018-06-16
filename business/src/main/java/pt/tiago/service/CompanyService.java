@@ -10,6 +10,7 @@ import pt.tiago.exception.NotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -25,16 +26,13 @@ public class CompanyService implements CrudService<CompanyDto,Long> {
 
 
     @Override
-    public CompanyDto read(Long id) {
-        return (CompanyDto) new CompanyDto().setName("primeiro").setId(1L);
+    public Optional<CompanyDto> read(Long id) {
+        Optional<Company> byId = companyRepository.findById(id);
+        return byId.map(company -> (CompanyDto) new CompanyDto().setId(company.getId()));
     }
 
     @Override
     public Collection<CompanyDto> list() {
-        ArrayList<CompanyDto> companyDtos = new ArrayList<>();
-        companyDtos.add((CompanyDto) new CompanyDto().setName("primeiro").setId(1L));
-        companyDtos.add((CompanyDto) new CompanyDto().setName("segundo").setId(2L));
-        companyDtos.add((CompanyDto) new CompanyDto().setName("terceiro").setId(3L));
         return companyRepository.findAll().stream().map(t -> (CompanyDto)new CompanyDto().setId(t.getId())).collect(Collectors.toList());
     }
 

@@ -34,7 +34,6 @@ import java.util.Collection;
  */
 public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends Serializable> implements CrudController<T,Y> {
 
-    private CrudService<T,Y> crudService;
 
     protected abstract Logger getLogger();
 
