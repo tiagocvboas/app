@@ -50,7 +50,7 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
                     this.getClass().getSimpleName(),id,exception.getClass().getSimpleName());
             return handle(exception);
         }
-        return new ResponseEntity<>(t.get(), HttpStatus.OK);
+        return t.isPresent()?new ResponseEntity<>(t.get(), HttpStatus.OK):new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
