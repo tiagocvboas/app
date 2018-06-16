@@ -1,10 +1,11 @@
-package pt.tiago.controller;
+package pt.tiago.controller.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pt.tiago.controller.CrudController;
 import pt.tiago.dto.CompanyDto;
 import pt.tiago.service.CompanyService;
 import pt.tiago.service.CrudService;
@@ -15,21 +16,20 @@ import pt.tiago.service.CrudService;
 
 @RestController
 @RequestMapping(value = "api/company")
-public class CompanyController extends AbstractController<CompanyDto,Long> implements CrudController<CompanyDto,Long>  {
+public class CompanyController extends AbstractController<CompanyDto,Long> implements CrudController<CompanyDto,Long> {
 
     private final Logger logger = LoggerFactory.getLogger(CompanyController.class);
 
+
     @Autowired
-    private CompanyService companyService;
+    public CompanyController(CompanyService companyService) {
+        super(companyService);
+    }
 
     @Override
     protected Logger getLogger() {
         return logger;
     }
 
-    @Override
-    public CrudService<CompanyDto, Long> getCrudService() {
-        return companyService;
-    }
 
 }

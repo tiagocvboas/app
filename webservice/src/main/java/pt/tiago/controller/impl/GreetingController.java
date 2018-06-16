@@ -1,15 +1,13 @@
-package pt.tiago.controller;
+package pt.tiago.controller.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pt.tiago.constant.Constant;
+import pt.tiago.controller.Greeting;
 
 import java.util.concurrent.atomic.AtomicLong;
 

@@ -1,4 +1,4 @@
-package pt.tiago.controller;
+package pt.tiago.controller.impl;
 
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import pt.tiago.controller.CrudController;
 import pt.tiago.dto.AbstractBaseId;
+import pt.tiago.dto.ErrorEnum;
+import pt.tiago.dto.ErrorStatus;
 import pt.tiago.exception.AppRuntimeException;
 import pt.tiago.exception.ExceptionUtils;
 import pt.tiago.service.CrudService;
@@ -36,7 +39,13 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
 
     protected abstract Logger getLogger();
 
-    public abstract CrudService<T, Y> getCrudService();
+    public AbstractController(CrudService<T, Y> crudService) {
+        this.crudService = crudService;
+    }
+
+    private CrudService<T, Y> getCrudService() {
+        return crudService;
+    }
 
     @Override
     @GetMapping(value = "{id}")
@@ -50,7 +59,7 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
                     this.getClass().getSimpleName(),id,exception.getClass().getSimpleName());
             return handle(exception);
         }
-        return t.isPresent()?new ResponseEntity<>(t.get(), HttpStatus.OK):new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return t.isPresent()?new ResponseEntity<>(t.get(), HttpStatus.OK):ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorStatus().setErrorEnum(ErrorEnum.RESOURCE_NOT_FOUND).setMessage(ErrorEnum.RESOURCE_NOT_FOUND.description()));
     }
 
 
