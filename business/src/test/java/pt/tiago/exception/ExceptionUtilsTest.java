@@ -7,10 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import pt.tiago.dto.ErrorEnum;
 import pt.tiago.dto.ErrorStatus;
-import pt.tiago.exception.AppRuntimeException;
-import pt.tiago.exception.ConflictException;
-import pt.tiago.exception.ExceptionUtils;
-import pt.tiago.exception.NotFoundException;
 
 /**
  * Created by Tiago Vilas Boas on 15/06/2018.

@@ -1,7 +1,5 @@
 package pt.tiago.dto;
 
-import java.util.Objects;
-
 /**
  * Created by Tiago Vilas Boas on 15/06/2018.
  */

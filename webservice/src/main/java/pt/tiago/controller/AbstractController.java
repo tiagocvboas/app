@@ -13,15 +13,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import pt.tiago.dto.AbstractBaseId;
 import pt.tiago.exception.AppRuntimeException;
-import pt.tiago.service.CrudService;
 import pt.tiago.exception.ExceptionUtils;
+import pt.tiago.service.CrudService;
 
 import javax.validation.Valid;
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 /**
  * Created by Tiago Vilas Boas on 14/06/2018.
  */
@@ -34,28 +32,30 @@ import java.util.Collection;
  */
 public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends Serializable> implements CrudController<T,Y> {
 
+    private CrudService<T,Y> crudService;
 
     protected abstract Logger getLogger();
 
     public abstract CrudService<T, Y> getCrudService();
 
     @Override
-    public ResponseEntity read(Y id) {
-        T t = getNewINInstance();
+    @GetMapping(value = "{id}")
+    public ResponseEntity read(@PathVariable("id")Y id) {
+        Optional<T> t;
         try {
-            getCrudService().read(id);
+            t = getCrudService().read(id);
             getLogger().info("read by id = {} from {}",id,this.getClass().getSimpleName());
         } catch (AppRuntimeException exception){
             getLogger().warn("failed to execute service {} with id={} with exception {}",
                     this.getClass().getSimpleName(),id,exception.getClass().getSimpleName());
             return handle(exception);
         }
-        t.setId(id);
-        return new ResponseEntity<>(t, HttpStatus.OK);
+        return new ResponseEntity<>(t.get(), HttpStatus.OK);
     }
 
 
     @Override
+    @GetMapping(value = "")
     public ResponseEntity<Collection<T>> list() {
         Collection<T> list;
         try {
@@ -70,35 +70,24 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
     }
 
     @Override
-    public ResponseEntity<T> create(T dto) {
+    @PostMapping(value = "")
+    public ResponseEntity<T> create(@Valid @RequestBody T dto) {
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         return new ResponseEntity<>(dto,headers,HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<T> update(Y id,T dto) {
+    @PutMapping(value = "{id}")
+    public ResponseEntity<T> update(@PathVariable("id") Y id,@RequestBody  T dto) {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Override
-    public ResponseEntity<T> delete(Y id) {
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<T> delete(@PathVariable("id")Y id) {
         return null;
     }
 
-
-    protected T getNewINInstance() {
-        Type t = this.getClass().getGenericSuperclass();
-        ParameterizedType pt = (ParameterizedType)t;
-        Class<T> type = (Class)pt.getActualTypeArguments()[0];
-        T out = null;
-
-        try {
-            out = type.newInstance();
-        } catch (IllegalAccessException | InstantiationException ignored) {
-        }
-
-        return out;
-    }
 
 
     private ResponseEntity handle(AppRuntimeException exception) {

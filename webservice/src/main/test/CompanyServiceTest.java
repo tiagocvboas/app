@@ -1,6 +1,5 @@
 import org.junit.FixMethodOrder;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import pt.tiago.app.Application;
 import pt.tiago.dto.CompanyDto;
 import pt.tiago.service.CompanyService;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by Tiago Vilas Boas on 15/06/2018.

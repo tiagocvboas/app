@@ -5,10 +5,8 @@ import org.springframework.stereotype.Service;
 import pt.tiago.dao.CompanyRepository;
 import pt.tiago.dto.CompanyDto;
 import pt.tiago.entity.Company;
-import pt.tiago.exception.NotFoundException;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
