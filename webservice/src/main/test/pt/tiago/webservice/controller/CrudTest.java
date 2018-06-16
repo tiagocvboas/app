@@ -1,5 +1,7 @@
 package pt.tiago.webservice.controller;
 
+import org.junit.Test;
+
 /**
  * Created by Tiago Vilas Boas on 15/06/2018.
  */
@@ -9,6 +11,7 @@ public interface CrudTest {
     void test2Update();
     void test7List();
     void test4Read();
-    void test5Delete();
+
+    void test8Delete();
 
 }

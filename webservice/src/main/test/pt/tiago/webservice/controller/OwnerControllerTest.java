@@ -38,7 +38,7 @@ public class OwnerControllerTest implements CrudTest {
     public void test1Create() {
         ResponseEntity read = ownerController.create(ownerDto);
         ownerDto = (OwnerDto) read.getBody();
-        tempId.setId(ownerDto.getId());
+        tempId.setCompanyId(ownerDto.getId());
         assertEquals(read.getStatusCode(), HttpStatus.CREATED);
     }
 
@@ -46,22 +46,22 @@ public class OwnerControllerTest implements CrudTest {
     @Override
     @Test
     public void test2Update() {
-        ResponseEntity read = ownerController.update(tempId.getId(), ownerDto.setName("updated name"));
+        ResponseEntity read = ownerController.update(tempId.getCompanyId(), ownerDto.setName("updated name"));
         assertEquals(read.getStatusCode(), HttpStatus.NO_CONTENT);
     }
 
     @Override
     @Test
     public void test4Read() {
-        ResponseEntity read = ownerController.read(tempId.getId());
+        ResponseEntity read = ownerController.read(tempId.getCompanyId());
         assertEquals(read.getStatusCode(), HttpStatus.OK);
     }
 
 
     @Override
     @Test
-    public void test5Delete() {
-        ResponseEntity read = ownerController.delete(tempId.getId());
+    public void test8Delete() {
+        ResponseEntity read = ownerController.delete(tempId.getCompanyId());
         assertEquals(read.getStatusCode(), HttpStatus.NO_CONTENT);
     }
 
@@ -73,5 +73,6 @@ public class OwnerControllerTest implements CrudTest {
         ResponseEntity read = ownerController.list();
         assertEquals(read.getStatusCode(), HttpStatus.OK);
     }
+
 
 }

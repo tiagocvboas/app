@@ -7,14 +7,24 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TempId {
-    private Long id;
+    private Long companyId;
+    private Long ownerId;
 
-    public Long getId() {
-        return id;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public TempId setId(Long id) {
-        this.id = id;
+    public TempId setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        return this;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public TempId setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
         return this;
     }
 }
