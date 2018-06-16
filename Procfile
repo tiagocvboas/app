@@ -1,1 +1,1 @@
-web: java -jar webservice/target/webservices-1.0-SNAPSHOT.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar webservice/target/*.jar
