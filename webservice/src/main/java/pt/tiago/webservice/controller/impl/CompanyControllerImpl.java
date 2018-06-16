@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -60,10 +61,25 @@ public class CompanyControllerImpl extends AbstractController<CompanyDto,Long> i
 
     @Override
     @PutMapping(value = "{id}/owner/{ownerId}")
-    public ResponseEntity addOwners(@PathVariable("id") Long id, @PathVariable("ownerId")Long ownerId) {
+    public ResponseEntity addOwner(@PathVariable("id") Long id, @PathVariable("ownerId") Long ownerId) {
         try {
             CompanyService companyService = (CompanyService) crudService;
             companyService.addOwner(id,ownerId);
+            getLogger().info("listing resources from {}", this.getClass().getSimpleName());
+        } catch (AppRuntimeException exception) {
+            getLogger().warn("failed to execute service {} with id={} with exception {}",
+                    this.getClass().getSimpleName(), exception.getClass().getSimpleName());
+            return handle(exception);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @Override
+    @DeleteMapping(value = "{id}/owner/{ownerId}")
+    public ResponseEntity removeOwner(@PathVariable("id") Long id, @PathVariable("ownerId") Long ownerId) {
+        try {
+            CompanyService companyService = (CompanyService) crudService;
+            companyService.removeOwner(id,ownerId);
             getLogger().info("listing resources from {}", this.getClass().getSimpleName());
         } catch (AppRuntimeException exception) {
             getLogger().warn("failed to execute service {} with id={} with exception {}",

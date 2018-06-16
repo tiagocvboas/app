@@ -95,4 +95,13 @@ public class CompanyService extends AbstractService<CompanyDto,Long,Company,Long
         this.companyRepository.save(byId);
 
     }
+
+    public void removeOwner(Long companyId, Long ownerId) {
+        Company byId = companyRepository.findById(companyId).orElseThrow(NotFoundException::new);
+        Owner ownerById = ownerRepository.findById(ownerId).orElseThrow(NotFoundException::new);
+
+        byId.getOwners().remove(ownerById);
+
+        this.companyRepository.save(byId);
+    }
 }
