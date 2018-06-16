@@ -35,7 +35,6 @@ public class CompanyControllerTest implements CrudTest {
             .setEmail("someemail@gmail.com")
             .setName("Some name")
             .setPhoneNumber("somephonenumber")
-            .setCompanyIdentifier("TIAGO")
             ;
 
     @Override

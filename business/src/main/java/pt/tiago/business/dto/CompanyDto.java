@@ -10,25 +10,12 @@ import java.util.Objects;
  * Created by Tiago Vilas Boas on 15/06/2018.
  */
 public class CompanyDto extends AbstractBaseId<Long> {
-    private String companyIdentifier;
     private String name;
     private String address;
     private String city;
     private String country;
     private String email;
     private String phoneNumber;
-
-
-    @NotNull
-    @Length(min = 1, max = 255)
-    public String getCompanyIdentifier() {
-        return companyIdentifier;
-    }
-
-    public CompanyDto setCompanyIdentifier(String companyIdentifier) {
-        this.companyIdentifier = companyIdentifier;
-        return this;
-    }
 
     @NotNull
     @Length(min = 1, max = 255)
@@ -100,8 +87,7 @@ public class CompanyDto extends AbstractBaseId<Long> {
         if (this == o) return true;
         if (!(o instanceof CompanyDto)) return false;
         CompanyDto that = (CompanyDto) o;
-        return Objects.equals(getCompanyIdentifier(), that.getCompanyIdentifier()) &&
-                Objects.equals(getName(), that.getName()) &&
+        return Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getAddress(), that.getAddress()) &&
                 Objects.equals(getCity(), that.getCity()) &&
                 Objects.equals(getCountry(), that.getCountry()) &&
@@ -112,13 +98,12 @@ public class CompanyDto extends AbstractBaseId<Long> {
     @Override
     public int hashCode() {
 
-        return Objects.hash(getCompanyIdentifier(), getName(), getAddress(), getCity(), getCountry(), getEmail(), getPhoneNumber());
+        return Objects.hash(getName(), getAddress(), getCity(), getCountry(), getEmail(), getPhoneNumber());
     }
 
     @Override
     public String toString() {
         return "CompanyDto{" +
-                "companyIdentifier='" + companyIdentifier + '\'' +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
