@@ -12,7 +12,14 @@ import pt.tiago.data.entity.Company;
 @Component
 public class CompanyMapper implements Mapper<Company,CompanyDto> {
     public CompanyDto map(Company in) {
-        return in==null?null: (CompanyDto) new CompanyDto()
+
+        return map(null,in);
+    }
+
+    @Override
+    public CompanyDto map(CompanyDto out, Company in) {
+        CompanyDto companyDto = out ==null?new CompanyDto():out;
+        return in==null?null: (CompanyDto) companyDto
                 .setName(in.getName())
                 .setAddress(in.getAddress())
                 .setCity(in.getCity())

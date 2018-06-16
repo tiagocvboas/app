@@ -11,7 +11,13 @@ import pt.tiago.data.entity.Owner;
 @Component
 public class OwnerDtoMapper implements Mapper<OwnerDto,Owner> {
     public Owner map(OwnerDto in) {
-        return in==null?null: new Owner()
+        return map(null,in);
+    }
+
+    @Override
+    public Owner map(Owner out, OwnerDto in) {
+        Owner owner =out==null? new Owner():out;
+        return in==null?null: owner
                 .setName(in.getName())
                 .setTitle(in.getTitle())
                 .setId(in.getId())

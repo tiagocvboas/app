@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pt.tiago.business.dto.OwnerDto;
@@ -54,5 +55,21 @@ public class CompanyControllerImpl extends AbstractController<CompanyDto,Long> i
             return handle(exception);
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+
+    @Override
+    @PutMapping(value = "{id}/owner/{ownerId}")
+    public ResponseEntity addOwners(@PathVariable("id") Long id, @PathVariable("ownerId")Long ownerId) {
+        try {
+            CompanyService companyService = (CompanyService) crudService;
+            companyService.addOwner(id,ownerId);
+            getLogger().info("listing resources from {}", this.getClass().getSimpleName());
+        } catch (AppRuntimeException exception) {
+            getLogger().warn("failed to execute service {} with id={} with exception {}",
+                    this.getClass().getSimpleName(), exception.getClass().getSimpleName());
+            return handle(exception);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

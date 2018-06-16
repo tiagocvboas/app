@@ -15,4 +15,13 @@ public interface Mapper<IN,OUT> {
      * @return The mapped class of the type OUT
      */
     OUT map(IN in);
+
+    /**
+     * Maps an object to type IN to OUT
+     * @param out The mapped class of the type OUT
+     * @param in the input parameter to map of type IN
+     * @return
+     */
+    OUT map(OUT out,IN in);
+
 }

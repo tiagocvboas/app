@@ -2,6 +2,7 @@ package pt.tiago.business.service;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import pt.tiago.business.dto.AbstractBaseId;
+import pt.tiago.business.exception.NotFoundException;
 import pt.tiago.business.mapper.Mapper;
 
 import java.util.Collection;
@@ -94,9 +95,13 @@ abstract class AbstractService<DTO extends AbstractBaseId<DTOPK>, DTOPK,ENTITY,E
     public void update(DTOPK id, DTO dto) {
         //sets the id to override the id in the body, as I believe that the path parameter
         // should persist of the id in the body
+        ENTITYPK mappedkey = getPkToEntityPkMapper().map(id);
         dto.setId(id);
         // maps the DTO to ENTITY
-        ENTITY entity = getDtoToEntityMapper().map(dto);
+        ENTITY byId = getRepository().findById(mappedkey).orElseThrow((NotFoundException::new));
+
+
+        ENTITY entity = getDtoToEntityMapper().map(byId,dto);
 
         // persists it
         getRepository().saveAndFlush(entity);

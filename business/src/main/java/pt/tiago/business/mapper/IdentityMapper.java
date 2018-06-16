@@ -16,4 +16,9 @@ public abstract class IdentityMapper<T> implements Mapper<T,T> {
     public T map(T t) {
         return t;
     }
+
+    @Override
+    public T map(T t, T t2) {
+        return t;
+    }
 }

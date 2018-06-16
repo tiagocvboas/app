@@ -17,4 +17,14 @@ public class OwnerMapper implements Mapper<Owner,OwnerDto> {
                 .setId(in.getId())
                 ;
     }
+
+    @Override
+    public OwnerDto map(OwnerDto out, Owner in) {
+        OwnerDto ownerDto =out ==null?new OwnerDto():out;
+        return in==null?null: (OwnerDto) ownerDto
+                .setName(in.getName())
+                .setTitle(in.getTitle())
+                .setId(in.getId())
+                ;
+    }
 }

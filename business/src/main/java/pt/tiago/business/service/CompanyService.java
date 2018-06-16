@@ -15,6 +15,7 @@ import pt.tiago.business.mapper.CompanyDtoMapper;
 import pt.tiago.business.mapper.CompanyMapper;
 import pt.tiago.data.entity.Owner;
 import pt.tiago.data.repository.CompanyRepository;
+import pt.tiago.data.repository.OwnerRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -49,6 +50,9 @@ public class CompanyService extends AbstractService<CompanyDto,Long,Company,Long
     @Autowired
     private OwnerMapper ownerMapper;
 
+    @Autowired
+    private OwnerRepository ownerRepository;
+
 
     @Override
     JpaRepository<Company, Long> getRepository() {
@@ -79,5 +83,16 @@ public class CompanyService extends AbstractService<CompanyDto,Long,Company,Long
         Company byId = companyRepository.findById(id).orElseThrow(NotFoundException::new);
         List<Owner> owners = byId.getOwners();
         return owners.stream().map(t->ownerMapper.map(t)).collect(Collectors.toList());
+    }
+
+    public void addOwner(Long companyId,Long ownerId){
+
+        Company byId = companyRepository.findById(companyId).orElseThrow(NotFoundException::new);
+        Owner ownerById = ownerRepository.findById(ownerId).orElseThrow(NotFoundException::new);
+
+        byId.getOwners().add(ownerById);
+
+        this.companyRepository.save(byId);
+
     }
 }
