@@ -14,10 +14,6 @@
             <groupId>pt.tiago</groupId>
             <artifactId>data</artifactId>
         </dependency>
-        <dependency>
-            <groupId>pt.tiago</groupId>
-            <artifactId>business-api</artifactId>
-        </dependency>
     </dependencies>
 
     <artifactId>business</artifactId>

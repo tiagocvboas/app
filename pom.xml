@@ -71,11 +71,6 @@
             </dependency>
             <dependency>
                 <groupId>pt.tiago</groupId>
-                <artifactId>business-api</artifactId>
-                <version>${app.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>pt.tiago</groupId>
                 <artifactId>webservices</artifactId>
                 <version>${app.version}</version>
             </dependency>
