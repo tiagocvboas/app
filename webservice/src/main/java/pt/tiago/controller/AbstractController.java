@@ -40,8 +40,7 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
     public abstract CrudService<T, Y> getCrudService();
 
     @Override
-    @GetMapping(value = "/{id}/")
-    public ResponseEntity read(@PathVariable("id")Y id) {
+    public ResponseEntity read(Y id) {
         T t = getNewINInstance();
         try {
             getCrudService().read(id);
@@ -57,7 +56,6 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
 
 
     @Override
-    @GetMapping(value = "/")
     public ResponseEntity<Collection<T>> list() {
         Collection<T> list;
         try {
@@ -72,21 +70,18 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
     }
 
     @Override
-    @PostMapping(value = "/")
-    public ResponseEntity<T> create(@Valid @RequestBody T dto) {
+    public ResponseEntity<T> create(T dto) {
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         return new ResponseEntity<>(dto,headers,HttpStatus.CREATED);
     }
 
     @Override
-    @PutMapping(value = "/{id}/")
-    public ResponseEntity<T> update(@PathVariable("id") Y id,@RequestBody  T dto) {
+    public ResponseEntity<T> update(Y id,T dto) {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Override
-    @DeleteMapping(value = "/{id}/")
-    public ResponseEntity<T> delete(@PathVariable("id")Y id) {
+    public ResponseEntity<T> delete(Y id) {
         return null;
     }
 
