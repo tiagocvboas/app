@@ -1,1 +1,1 @@
-web: java -jar webservice/target/webservices-api-1.0-SNAPSHOT.jar
+web: java -jar webservice/target/webservices-1.0-SNAPSHOT.jar
