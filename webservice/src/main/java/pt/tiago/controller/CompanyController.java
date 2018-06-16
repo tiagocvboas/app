@@ -20,9 +20,6 @@ public class CompanyController extends AbstractController<CompanyDto,Long> imple
 
     private final Logger logger = LoggerFactory.getLogger(CompanyController.class);
 
-    @Autowired
-    private CompanyService crudService;
-
 
 
     @Override
@@ -32,6 +29,6 @@ public class CompanyController extends AbstractController<CompanyDto,Long> imple
 
     @Override
     public CrudService<CompanyDto, Long> getCrudService() {
-        return crudService;
+        return new CompanyService();
     }
 }
