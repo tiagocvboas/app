@@ -2,4 +2,6 @@
 
 
 Application is running [here](http://obscure-plains-83225.herokuapp.com/)
-The api is rooted /api/ and can be found [here](http://obscure-plains-83225.herokuapp.com/api/)
+
+# Documentation
+Added swagger Documentation to the project [here](http://obscure-plains-83225.herokuapp.com/swagger-ui.html)
