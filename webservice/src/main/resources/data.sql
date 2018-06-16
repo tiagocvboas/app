@@ -1,1 +1,0 @@
-insert into company(name) VALUES('nome');

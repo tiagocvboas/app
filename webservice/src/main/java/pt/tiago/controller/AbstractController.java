@@ -38,16 +38,14 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
 
     protected abstract Logger getLogger();
 
-    public AbstractController(CrudService<T, Y> crudService) {
-        this.crudService = crudService;
-    }
+    public abstract CrudService<T, Y> getCrudService();
 
     @Override
     @GetMapping(value = "/{id}/")
     public ResponseEntity read(@PathVariable("id")Y id) {
         T t = getNewINInstance();
         try {
-            crudService.read(id);
+            getCrudService().read(id);
             getLogger().info("read by id = {} from {}",id,this.getClass().getSimpleName());
         } catch (AppRuntimeException exception){
             getLogger().warn("failed to execute service {} with id={} with exception {}",
@@ -64,7 +62,7 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
     public ResponseEntity<Collection<T>> list() {
         Collection<T> list;
         try {
-            list = crudService.list();
+            list = getCrudService().list();
             getLogger().info("listing resources from {}", this.getClass().getSimpleName());
         } catch (AppRuntimeException exception) {
             getLogger().warn("failed to execute service {} with id={} with exception {}",

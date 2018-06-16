@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pt.tiago.constant.Constant;
 import pt.tiago.dto.CompanyDto;
 import pt.tiago.service.CompanyService;
+import pt.tiago.service.CrudService;
 
 /**
  * Created by Tiago Vilas Boas on 15/06/2018.
@@ -20,12 +21,17 @@ public class CompanyController extends AbstractController<CompanyDto,Long> imple
     private final Logger logger = LoggerFactory.getLogger(CompanyController.class);
 
     @Autowired
-    public CompanyController(CompanyService crudService) {
-        super(crudService);
-    }
+    private CompanyService crudService;
+
+
 
     @Override
     protected Logger getLogger() {
         return logger;
+    }
+
+    @Override
+    public CrudService<CompanyDto, Long> getCrudService() {
+        return crudService;
     }
 }
