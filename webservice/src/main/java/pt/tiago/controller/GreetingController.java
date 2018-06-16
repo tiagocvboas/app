@@ -14,27 +14,20 @@ import pt.tiago.constant.Constant;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
-@RequestMapping(value = Constant.CONTEXT_PATH_PREFIX + "greeting")
+@RequestMapping(value = "api")
 public class GreetingController {
 
     private final Logger logger = LoggerFactory.getLogger(GreetingController.class);
 
 
 
-    private static final String template = "Hello, %s!";
+    private static final String template = "Greetings, this is the root of the api!";
     private final AtomicLong counter = new AtomicLong();
 
     @GetMapping(value = "")
-    public ResponseEntity<Greeting> greeting(@RequestParam(value="name", defaultValue="World") String name) {
+    public ResponseEntity<Greeting> greeting() {
         logger.info("Greeting was called!");
         return new ResponseEntity<>(new Greeting(counter.incrementAndGet(),
-                String.format(template, name)), HttpStatus.OK);
-    }
-
-    @PostMapping(value = "")
-    public ResponseEntity<Greeting> greetingP(@RequestParam(value="name", defaultValue="World") String name) {
-        logger.info("Greeting was called!");
-        return new ResponseEntity<>(new Greeting(counter.incrementAndGet(),
-                String.format(template, name)), HttpStatus.OK);
+                template), HttpStatus.OK);
     }
 }
