@@ -40,9 +40,15 @@ I also didn't doc the api documents on the README.me since I decided to add Swag
 ## Questions:
 
 ### You do not need to add authentication to your web service, but propose a protocol / method andjustify your choice.*
-//TODO
+I would put the application behind an oauth server like [keycloak])(https://www.keycloak.org/) which is open source and widely used already, and redhat 
+supports it behind [apiman](http://www.apiman.io/latest/) to add ip white/black listing, limiting and decoupling of the endpoint. 
+Both of them i've used in production.
+I would add both the front-end and the back-end behind it. 
+The back-end would implement it's authentication with bearer token + JWT. 
 
 ### How can you make the service redundant? What considerations should you do?
 
- //TODO
+I would add as many instances of the application running behind a load balancer.
+
+Probably deployed in a cloud solution which would do it automatically, or running in a kubernetes cluster.
 
