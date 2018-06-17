@@ -7,13 +7,27 @@ It allows the CRUD operation of companies and owners. And allows the company to 
 Application is currently deployed [here](http://obscure-plains-83225.herokuapp.com/)
 It includes a simple index.html with a link to the API documentation
 
+I've also implemented the api the way I do at work, building the api's crud operations 
+as generic as possible. And with the responsibility layers well defined.
+ 1. the data layer which includes dao's and entities
+ 2. the business layer which adds logic to it and transforms the entities 
+ into dto's to avoid exposing the entities to the webservice
+ 3. the webservice layer which only exposes the business layer methods and 
+ translates the exceptions and responses in proper http responses
+
+The maven dependencies aren't totally right, since there's visibility of entities on the webservice layer which I didn't fix yet,
+But the idea is that it shouldn't be able to see them.
+
 
 ## Documentation
+
 Added swagger Documentation to the project [here](http://obscure-plains-83225.herokuapp.com/docs/index.html) and [here](http://obscure-plains-83225.herokuapp.com/swagger-ui.html)
 
 Since for some time the embedded version of the swagger-ui wasn't working so 
 I've added it as static content and fixed the url to point to the root of the api 
-which is running [here](http://obscure-plains-83225.herokuapp.com/api) 
+which is running [here](http://obscure-plains-83225.herokuapp.com/api)
+
+//TODO add more documentation to the methods 
 
 ## About the project and a couple of thoughts
 
