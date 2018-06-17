@@ -4,7 +4,9 @@ It allows the CRUD operation of companies and owners. And allows the company to 
 
 
 
-Application is running [here](http://obscure-plains-83225.herokuapp.com/)
+Application is currently deployed [here](http://obscure-plains-83225.herokuapp.com/)
+It includes a simple index.html with a link to the API documentation
+
 
 ## Documentation
 Added swagger Documentation to the project [here](http://obscure-plains-83225.herokuapp.com/docs/index.html) and [here](http://obscure-plains-83225.herokuapp.com/swagger-ui.html)
