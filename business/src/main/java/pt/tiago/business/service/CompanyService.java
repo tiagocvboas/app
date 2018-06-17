@@ -111,7 +111,7 @@ public class CompanyService extends AbstractService<CompanyDto,Long,Company,Long
         this.companyRepository.save(byId);
     }
 
-    public OwnerDto addNewOwner(Long companyId, @Valid OwnerDto ownerDto) {
+    public OwnerDto addNewOwner(Long companyId,OwnerDto ownerDto) {
 
         Owner createdOwner = ownerRepository.save(ownerDtoMapper.map(ownerDto));
         Company byId = companyRepository.findById(companyId).orElseThrow(NotFoundException::new);

@@ -75,7 +75,7 @@ public class OwnerControllerImpl extends AbstractController<OwnerDto,Long> imple
             @ApiResponse(code = 404, message = "Unable to found owner of the give id"),
             @ApiResponse(code = 500, message = "Something went very wrong")
     })
-    public ResponseEntity<OwnerDto> update(@PathVariable("id") Long id, OwnerDto dto) {
+    public ResponseEntity<OwnerDto> update(@PathVariable("id") Long id,@Valid OwnerDto dto) {
         return super.update(id, dto);
     }
 

@@ -91,7 +91,7 @@ public class CompanyControllerImpl extends AbstractController<CompanyDto,Long> i
             @ApiResponse(code = 404, message = "Unable to found company of the give id"),
             @ApiResponse(code = 500, message = "Something went very wrong")
     })
-    public ResponseEntity<CompanyDto> update(@PathVariable("id") Long id, CompanyDto dto) {
+    public ResponseEntity<CompanyDto> update(@PathVariable("id") Long id,@Valid CompanyDto dto) {
         return super.update(id, dto);
     }
 
@@ -130,7 +130,7 @@ public class CompanyControllerImpl extends AbstractController<CompanyDto,Long> i
             @ApiResponse(code = 201, message = "Success"),
             @ApiResponse(code = 500, message = "Something went very wrong")
     })
-    public ResponseEntity addOwner(@PathVariable("id") Long id, @RequestBody @Valid OwnerDto ownerDto) {
+    public ResponseEntity addNewOwner(@PathVariable("id") Long id, @RequestBody @Valid OwnerDto ownerDto) {
         OwnerDto createdOwner;
         try {
             CompanyService companyService = (CompanyService) crudService;

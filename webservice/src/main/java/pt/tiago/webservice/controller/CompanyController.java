@@ -18,7 +18,7 @@ public interface CompanyController extends CrudController<CompanyDto,Long> {
 
 
     ResponseEntity owners(Long id);
-    ResponseEntity addOwner(Long id, OwnerDto ownerDto);
+    ResponseEntity addNewOwner(Long id, OwnerDto ownerDto);
     ResponseEntity addOwner(Long id, Long ownerId);
 
     ResponseEntity removeOwner(Long id, Long ownerId);

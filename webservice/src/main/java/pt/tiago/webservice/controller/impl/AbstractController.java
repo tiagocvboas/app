@@ -90,7 +90,7 @@ public abstract class AbstractController<T extends AbstractBaseId<Y>,Y extends S
 
     @Override
     @PutMapping(value = "{id}")
-    public ResponseEntity<T> update(@PathVariable("id") Y id,@RequestBody  T dto) {
+    public ResponseEntity<T> update(@PathVariable("id") Y id,@Valid @RequestBody  T dto) {
         try {
             crudService.update(id,dto);
             getLogger().info("listing resources from {}", this.getClass().getSimpleName());
