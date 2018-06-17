@@ -18,6 +18,7 @@ import pt.tiago.data.repository.CompanyRepository;
 import pt.tiago.data.repository.OwnerRepository;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -51,8 +52,13 @@ public class CompanyService extends AbstractService<CompanyDto,Long,Company,Long
     private OwnerMapper ownerMapper;
 
     @Autowired
+    private OwnerDtoMapper ownerDtoMapper;
+
+    @Autowired
     private OwnerRepository ownerRepository;
 
+    @Autowired
+    private OwnerService ownerService;
 
     @Override
     JpaRepository<Company, Long> getRepository() {
@@ -103,5 +109,14 @@ public class CompanyService extends AbstractService<CompanyDto,Long,Company,Long
         byId.getOwners().remove(ownerById);
 
         this.companyRepository.save(byId);
+    }
+
+    public OwnerDto addNewOwner(Long companyId, @Valid OwnerDto ownerDto) {
+
+        Owner createdOwner = ownerRepository.save(ownerDtoMapper.map(ownerDto));
+        Company byId = companyRepository.findById(companyId).orElseThrow(NotFoundException::new);
+        byId.getOwners().add(createdOwner);
+        this.companyRepository.save(byId);
+        return ownerMapper.map(createdOwner);
     }
 }

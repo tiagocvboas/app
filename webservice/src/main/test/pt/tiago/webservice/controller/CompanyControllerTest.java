@@ -100,6 +100,8 @@ public class CompanyControllerTest implements CrudTest {
 
     }
 
+
+
     @Test
     public void test6ListOwner() {
         ResponseEntity read = companyController.owners(tempId.getCompanyId());
