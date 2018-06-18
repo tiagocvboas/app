@@ -57,9 +57,6 @@ public class CompanyService extends AbstractService<CompanyDto,Long,Company,Long
     @Autowired
     private OwnerRepository ownerRepository;
 
-    @Autowired
-    private OwnerService ownerService;
-
     @Override
     JpaRepository<Company, Long> getRepository() {
         return companyRepository;
