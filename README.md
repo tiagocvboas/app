@@ -1,4 +1,4 @@
-# Simple app client
+# Simple app
 
 It allows the CRUD operation of companies and owners. And allows the company to add multiple owners all through a rest api.
 
